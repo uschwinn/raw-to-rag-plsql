@@ -1,8 +1,8 @@
 # Raw Data to RAG — Autonomous AI Database 26ai demo
 
-This is a deliberately small, live-demo-first RAG build.  It starts with a real PDF stored in OCI Object Storage and makes each transformation visible:
+This is a small, live-demo-first RAG build.  It starts with a real HTML document stored in OCI Object Storage and makes each transformation visible:
 
-`Object Storage PDF → BLOB → text → chunks → embeddings → vector search → grounded answer`
+`Object Storage HTML → BLOB → text → chunks → embeddings → vector search → grounded answer`
 
 Run the scripts in this order using Database Actions SQL, SQL Developer, or SQLcl:
 
@@ -24,7 +24,7 @@ Run the scripts in this order using Database Actions SQL, SQL Developer, or SQLc
 
 The scripts use `DBMS_VECTOR_CHAIN` consistently so the stage boundaries are obvious. In 26ai, equivalent vector utility operations are also exposed by `DBMS_VECTOR`; the interesting point is the composable hand-off between results, not which namespace is typed.
 
-## Workshop HTML document: Lewis Carroll, Alice’s Adventures in Wonderland (1865), Project Gutenberg eBook #11; original work public domain.
+## Workshop material: The HTML document: Lewis Carroll, Alice’s Adventures in Wonderland (1865), Project Gutenberg eBook #11; original work public domain.
 
 Source: Lewis Carroll, Alice’s Adventures in Wonderland (1865), Project Gutenberg eBook #11; original work public domain.
 
