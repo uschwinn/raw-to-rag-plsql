@@ -1,6 +1,7 @@
 -- UTL_TO_GENERATE_TEXT for RAG
--- Retrieve the top 10 matching chunks, merge them into a prompt, generate
--- a grounded natural-language answer. 
+-- Retrieve the top 10 matching chunks, merge them into a prompt, generate a grounded natural-language answer. 
+-- please provide your choice for provider, credential, third party provider endpoint and model
+-- here we use OCI Generative AI, cohere and OCI_GENAI_CRED
 
 
 -- Try some questions such as: 
