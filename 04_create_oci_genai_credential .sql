@@ -1,5 +1,5 @@
 -- Create one_time credential setup
--- Optional swap embedding provider (in-DB -> third-party)
+-- Optional swap embedding provider (in-DB -> third-party): see script 06
 
 
 BEGIN
