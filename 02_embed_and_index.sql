@@ -1,4 +1,4 @@
--- Demonstrate UTL_TO_TEXT, UTL_TO_CHUNK,and UTL_TO_EMBEDDINGS
+-- Demonstrate DBMS_VECTOR_CHAIN.UTL_TO_TEXT, DBMS_VECTOR_CHAIN.UTL_TO_CHUNK, and DBMS_VECTOR_CHAIN.UTL_TO_EMBEDDINGS
 -- Create chunks table with related chunks embeddings  
 
 set timing on
@@ -27,7 +27,6 @@ end;
 
 
 -- 1. Persist chunk text from UTL_TO_CHUNKS itself in a temporary staging table.
-
 
 create table rag_chunk_text as
 select d.doc_id,
@@ -103,8 +102,8 @@ select count(*)
 from rag_chunks;
 
 
--- (optional) Vector Index   
---  small table here so an HNSW index is overkill, but may be worth trying
+-- (optional) vector index creation
+-- small table here so an HNSW index is overkill, but may be worth demonstrating
 
 create vector index doc_chunks_hnsw_idx on rag_chunks (embedding)
 organization inmemory neighbor graph
