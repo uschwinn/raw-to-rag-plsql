@@ -1,10 +1,7 @@
 -- One-time setup. Put the ONNX file in Object Storage and create a read-only PAR.
 -- Oracle's prebuilt all_MiniLM_L12_v2.onnx is the intended 384-dimensional model.
--- See [Import Pretrained Models in ONNX Format](https://docs.oracle.com/en/database/oracle/oracle-database/26/vecse/import-pretrained-models-onnx-format-vector-generation-database.html)
-
 -- A PAR means credential => NULL. For a private native Object Storage URL, supply
 -- a DBMS_CLOUD credential name instead.
-
 
 -- connect as app user and replace modell_name and model_url
 
