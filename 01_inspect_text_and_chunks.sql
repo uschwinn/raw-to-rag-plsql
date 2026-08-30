@@ -1,4 +1,4 @@
--- Demonstrate UTL_TEXT, UTL_TEXT_CHUNK
+-- Demonstrate DBM_VECTOR_CHAIN.UTL_TO_TEXT, and DBMS_VECTOR_CHAIN.UTL_TO_CHUNKS 
 
 set long 30000
 set longchunksize 30000
@@ -17,9 +17,8 @@ select dbms_lob.substr(
        ) as extracted_text
 from rag_documents;
 
--- From text -> JSON chunks. Change MAX and OVERLAP and compare 1
--- Keep MAX modest and change OVERLAP if necessary: e.g. MAX 400 and OVERLAP 0, MAX 200 and OVERLAP 20
--- Oracle requires nonzero overlap to be at least 5% of MAX,
+-- From text -> JSON chunks. Change MAX and OVERLAP and compare it.
+-- Keep MAX modest and change OVERLAP if necessary: e.g. MAX 400 and OVERLAP 0, MAX 200, and OVERLAP 20
 
 select j.chunk_id,
        j.chunk_offset,
@@ -44,7 +43,7 @@ from rag_documents d,
 order by j.chunk_id
 fetch first 8 rows only;
 
--- Fast comparison after changing MAX, OVERLAP and SPLIT above.
+-- Fast comparison after changing MAX, OVERLAP, and SPLIT above.
 
 select count(*) as chunk_count,
        min(j.chunk_length) as smallest_chars,
