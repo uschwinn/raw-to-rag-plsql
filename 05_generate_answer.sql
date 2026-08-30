@@ -1,10 +1,9 @@
--- UTL_TO_GENERATE_TEXT for RAG
+-- Demonstrate DBMS_VECTOR_CHAIN.UTL_TO_GENERATE_TEXT for RAG
 -- Retrieve the top 10 matching chunks, merge them into a prompt, generate a grounded natural-language answer. 
--- please provide your choice for provider, credential, third party provider endpoint and model
--- here we use OCI Generative AI, cohere and OCI_GENAI_CRED
+-- Assign your chosen values for provider, credential, third party provider endpoint and model.
+-- In this workshop, we use OCI Generative AI, Cohere and OCI_GENAI_CRED.
 
-
--- Try some questions such as: 
+-- Try some questions, enter the following for :question 
 -- Who attends the tea party?
 -- Why is the White Rabbit in a hurry?
 -- What did Alice think about a book without pictures or conversations?
@@ -13,9 +12,9 @@
 -- Why does Alice fall down the rabbit hole?
 -- What is the task of the Queen of Hearts?
 
--- please make sure that the credential exists.
+-- Please make sure that the credential exists.
 
-set serverout on
+set serveroutput on
 declare
   l_query_vector vector;
   l_context      clob := empty_clob();
@@ -30,7 +29,7 @@ begin
     select chunk_id, chunk_data
     from rag_chunks
     order by embedding <=> l_query_vector
-    fetch approx first 5 rows only
+    fetch approx first 10 rows only
   ) loop
     l_context := l_context || chr(10) || '[chunk ' || r.chunk_id || ']' || chr(10)
                  || r.chunk_data || chr(10);
