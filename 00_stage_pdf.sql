@@ -13,12 +13,12 @@ end;
 /
 
 
--- create app user
+-- create app user and replace username and password
 
 create user &username identified by &password;
 
-grant db_developer_role, connect to wikiquery;
-grant all on dbms_cloud to wikiquery;
+grant db_developer_role, connect to &username;
+grant all on dbms_cloud to &username;
  
 alter user &username quota unlimited on users;
 
@@ -51,7 +51,7 @@ create table rag_documents (
   doc_id       number generated always as identity primary key,
   title        varchar2(500) not null,
   source_url   varchar2(4000) not null,
-  html_blob     blob not null,
+  html_blob    blob not null,
   loaded_at    timestamp default systimestamp not null
 );
 
