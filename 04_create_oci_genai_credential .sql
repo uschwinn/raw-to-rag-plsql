@@ -1,6 +1,5 @@
--- Create one_time credential setup
--- Optional swap embedding provider (in-DB -> third-party): see script 06
-
+-- Create one time credential setup with DBMS_VECTOR_CHAIN.CREATE_CREDENTIAL
+-- Optional swap embedding provider (in-DB -> third-party): see script 06_swap_embedding_to_oci_genai.sql
 
 BEGIN
     DBMS_VECTOR_CHAIN.DROP_CREDENTIAL('OCI_GENAI_CRED');
@@ -27,5 +26,6 @@ END;
 
 -- Verify only that it exists; never select or print credential contents.
 
-select credential_name from user_credentials 
+select credential_name 
+    from user_credentials 
 where credential_name = 'OCI_GENAI_CRED';
