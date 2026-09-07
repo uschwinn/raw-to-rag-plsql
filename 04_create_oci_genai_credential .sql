@@ -1,6 +1,33 @@
--- Create one time credential setup with DBMS_VECTOR_CHAIN.CREATE_CREDENTIAL
+-- Requires CREATE CREDENTIAL and outbound connect permission for your GenAI region.
 -- Optional swap embedding provider (in-DB -> third-party): see script 06_swap_embedding_to_oci_genai.sql
+/*
+Setup as ADMIN 
+*/
 
+BEGIN
+  DBMS_NETWORK_ACL_ADMIN.APPEND_HOST_ACE(
+    host => '*',
+    ace => xs$ace_type(privilege_list => xs$name_list('http'),
+                       principal_name => '&username',
+                       principal_type => xs_acl.ptype_db));
+END;
+/
+
+BEGIN
+  DBMS_NETWORK_ACL_ADMIN.APPEND_HOST_ACE(
+    host => '*',
+    ace  => xs$ace_type(
+      privilege_list => xs$name_list('connect', 'resolve'),
+      principal_name => '&username',
+      principal_type => xs_acl.ptype_db
+    )
+  );
+END;
+/
+
+/* 
+    as user with username 
+*/
 BEGIN
     DBMS_VECTOR_CHAIN.DROP_CREDENTIAL('OCI_GENAI_CRED');
 EXCEPTION WHEN OTHERS THEN NULL;
@@ -26,6 +53,6 @@ END;
 
 -- Verify only that it exists; never select or print credential contents.
 
-select credential_name 
-    from user_credentials 
+select credential_name
+from user_credentials 
 where credential_name = 'OCI_GENAI_CRED';
