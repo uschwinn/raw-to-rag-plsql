@@ -1,10 +1,9 @@
 -- Optional provider-swap (DB -> remote OCI model) demo: This uses the same chunking call but a remote OCI model.
--- IMPORTANT: embed data and query with the same model, and use a vector column whose
--- dimension matches that model. Do this in a separate table from the ONNX demo.
+-- IMPORTANT: embed data and query with the same model, and use a vector column whose dimension matches that model. 
 
-drop table rag_chunks_oci_1;
+drop table rag_chunks_oci;
 
-create table rag_chunks_oci_1 (
+create table rag_chunks_oci (
   doc_id   number not null,
   chunk_id number not null,
   chunk_data varchar2(4000) not null,
@@ -12,7 +11,7 @@ create table rag_chunks_oci_1 (
   constraint rag_chunks_oci_pk_1 primary key (doc_id, chunk_id)
 );
 
-insert into rag_chunks_oci_1 (doc_id, chunk_id, chunk_data, embedding)
+insert into rag_chunks_oci (doc_id, chunk_id, chunk_data, embedding)
 select d.doc_id, e.embed_id, e.embed_data, to_vector(e.embed_vector)
 from rag_documents d,
      table(
@@ -62,7 +61,7 @@ BEGIN
 
   FOR r IN (
     SELECT chunk_id, chunk_data
-    FROM rag_chunks_oci_1
+    FROM rag_chunks_oci
     ORDER BY embedding <=> l_query_vector
     FETCH APPROX FIRST 10 ROWS ONLY
   ) LOOP
