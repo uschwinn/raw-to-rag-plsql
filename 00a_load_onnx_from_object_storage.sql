@@ -3,13 +3,13 @@
 -- A PAR means credential => NULL. For a private native Object Storage URL, supply
 -- a DBMS_CLOUD credential name instead.
 
--- connect as app user and replace modell_name and model_url
+-- connect as app user and replace model_name and model_url
 
 begin
   dbms_vector.load_onnx_model_cloud(
-    model_name => '&MODEL_NAME',
+    model_name => '&model_name',
     credential => null,
-    uri        => '&MODEL_URL'
+    uri        => '&dodel_url'
   );
 end;
 /
