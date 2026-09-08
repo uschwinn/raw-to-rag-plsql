@@ -20,9 +20,7 @@ select chunk_id,
          ), cosine), 4) as cosine_distance,
        substr(chunk_data, 1, 750) as retrieved_chunk
 from rag_chunks
-order by embedding <=> dbms_vector_chain.utl_to_embedding(
-  :questions, json('{"provider":"database","model":"MINILM_L12_V2"}')
-)
-fetch approx first 5 rows only;
+order by cosine_distance
+fetch exact first 5 rows only;
 
 
